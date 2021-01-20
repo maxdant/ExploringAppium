@@ -1,6 +1,7 @@
 import unittest
 from appium import webdriver
 import time
+from pages.GMaps import *
 
 
 class AppiumTest(unittest.TestCase):
@@ -17,9 +18,16 @@ class AppiumTest(unittest.TestCase):
         self.driver = webdriver.Remote("http://0.0.0.0:4723/wd/hub", self.dc)
 
     def testFirstAutomation(self):
-        search_box = self.driver.find_element_by_class_name('android.widget.TextView')
+        gmaps = GMaps()
+        buttons = self.driver.find_elements_by_class_name('android.widget.Button')
+        if len(buttons) > 0:
+            for button in buttons:
+                if button.text == 'SKIP':
+                    button.click()
+                    break
+        search_box = self.driver.find_element_by_class_name(gmaps.search_box_classname)
         search_box.click()
-        enter_input_for_search = self.driver.find_element_by_class_name('android.widget.EditText')
+        enter_input_for_search = self.driver.find_element_by_class_name(gmaps.input_for_search_classname)
         time.sleep(2)  # to remove asap
         enter_input_for_search.send_keys("Berlin")
         berlin_xpath = '//*[contains(@text, "Berlin")] '
