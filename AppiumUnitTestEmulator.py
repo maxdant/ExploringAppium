@@ -19,6 +19,7 @@ class AppiumTest(unittest.TestCase):
 
     def testFirstAutomation(self):
         gmaps = GMaps()
+
         buttons = self.driver.find_elements_by_class_name('android.widget.Button')
         if len(buttons) > 0:
             for button in buttons:
